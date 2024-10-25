@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <Button
+        android:id="@+id/btnMath"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Math" />
+
+    <Button
+        android:id="@+id/btnPhysics"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Physics" />
+
+    <Button
+        android:id="@+id/btnMarvel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Marvel Super Heroes" />
+
+    <Button
+        android:id="@+id/btnGhibli"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Studio Ghibli" />
+
+    <Button
+        android:id="@+id/btnMario"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Mario" />
+
+    <Button
+        android:id="@+id/btnHPotter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Harry Potter" />
+
+</LinearLayout>
