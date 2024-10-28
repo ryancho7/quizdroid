@@ -20,6 +20,7 @@ class QuizQuestionFragment : Fragment() {
     private var currentQuestionIndex = 0
     private var correctAnswers = 0
     private var isReturningFromAnswer = false
+    private val answerHistory = mutableListOf<Boolean>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,16 +33,16 @@ class QuizQuestionFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         // Get the selected topic from arguments
-        val topic = arguments?.getString("topic") ?: "Math"
+        val topic = arguments?.getString("topic") ?: getString(R.string.topic_math)
 
         // Load the questions for the selected topic
         questions = when (topic) {
-            "Math" -> QuizData.getMathQuestions()
-            "Physics" -> QuizData.getPhysicsQuestions()
-            "Marvel Super Heroes" -> QuizData.getMarvelQuestions()
-            "Studio Ghibli" -> QuizData.getStudioGhibliQuestions()
-            "Mario" -> QuizData.getMarioQuestions()
-            "Harry Potter" -> QuizData.getHarryPotterQuestions()
+            getString(R.string.topic_math) -> QuizData.getMathQuestions()
+            getString(R.string.topic_physics) -> QuizData.getPhysicsQuestions()
+            getString(R.string.topic_marvel) -> QuizData.getMarvelQuestions()
+            getString(R.string.topic_ghibli) -> QuizData.getStudioGhibliQuestions()
+            getString(R.string.topic_mario) -> QuizData.getMarioQuestions()
+            getString(R.string.topic_hp) -> QuizData.getHarryPotterQuestions()
             else -> QuizData.getMathQuestions()
         }
 
@@ -91,10 +92,12 @@ class QuizQuestionFragment : Fragment() {
             else -> -1
         }
 
-        // Check if the answer was correct
-        if (selectedAnswerIndex == questions[currentQuestionIndex].correctAnswer) {
+        // check answer
+        val isCorrect = selectedAnswerIndex == questions[currentQuestionIndex].correctAnswer
+        if(isCorrect) {
             correctAnswers++
         }
+        answerHistory.add(isCorrect)
 
         // Prepare the answer options list to pass to the AnswerFragment
         val answerOptions = questions[currentQuestionIndex].options.toTypedArray()
@@ -123,6 +126,12 @@ class QuizQuestionFragment : Fragment() {
     private fun handleBackPressed() {
         if (currentQuestionIndex > 0) {
             currentQuestionIndex--
+            if(answerHistory.isNotEmpty()) {
+                val lastAnswer = answerHistory.removeAt(answerHistory.size - 1)
+                if(lastAnswer) {
+                    correctAnswers--
+                }
+            }
             loadQuestion(requireView()) // Load the previous question
         } else {
             parentFragmentManager.popBackStack("TopicList", 0) // Return to Topic List

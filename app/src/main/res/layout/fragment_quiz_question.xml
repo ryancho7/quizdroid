@@ -5,7 +5,6 @@
     android:orientation="vertical"
     android:padding="16dp">
 
-    <!-- Question Text -->
     <TextView
         android:id="@+id/tvQuestion"
         android:layout_width="wrap_content"
@@ -14,7 +13,6 @@
         android:textSize="18sp"
         android:paddingBottom="16dp" />
 
-    <!-- RadioGroup for Answer Options -->
     <RadioGroup
         android:id="@+id/radioGroup"
         android:layout_width="match_parent"
@@ -26,36 +24,35 @@
             android:id="@+id/radioOption1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Option 1" />
+            android:text="@string/radio_option_1" />
 
         <!-- Answer Option 2 -->
         <RadioButton
             android:id="@+id/radioOption2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Option 2" />
+            android:text="@string/radio_option_2" />
 
         <!-- Answer Option 3 -->
         <RadioButton
             android:id="@+id/radioOption3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Option 3" />
+            android:text="@string/radio_option_3" />
 
         <!-- Answer Option 4 -->
         <RadioButton
             android:id="@+id/radioOption4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Option 4" />
+            android:text="@string/radio_option_4" />
     </RadioGroup>
 
-    <!-- Submit Button -->
     <Button
         android:id="@+id/btnSubmit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Submit"
+        android:text="@string/submit"
         android:enabled="false"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="16dp" />

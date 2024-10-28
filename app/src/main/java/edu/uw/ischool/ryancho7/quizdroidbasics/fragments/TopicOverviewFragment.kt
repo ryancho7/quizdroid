@@ -23,7 +23,7 @@ class TopicOverviewFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         // Get the topic name from arguments
-        val topic = arguments?.getString("topic") ?: "Math"
+        val topic = arguments?.getString("topic") ?: getString(R.string.topic_title_default)
 
         // Retrieve the total number of questions for the topic
         val totalQuestions = when (topic) {
@@ -38,8 +38,8 @@ class TopicOverviewFragment : Fragment() {
 
         // Set the topic title, description, and total number of questions
         view.findViewById<TextView>(R.id.tvTopicTitle).text = topic
-        view.findViewById<TextView>(R.id.tvDescription).text = "$topic is not a quiz for the casual fan. Can you get them all right?"
-        view.findViewById<TextView>(R.id.tvTotalQuestions).text = "Total Questions: $totalQuestions"
+        view.findViewById<TextView>(R.id.tvDescription).text = getString(R.string.topic_description)
+        view.findViewById<TextView>(R.id.tvTotalQuestions).text = getString(R.string.total_questions, totalQuestions)
 
         // Begin button to navigate to QuizQuestionFragment
         view.findViewById<Button>(R.id.btnBegin).setOnClickListener {

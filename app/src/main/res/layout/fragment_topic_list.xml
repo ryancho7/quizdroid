@@ -9,36 +9,36 @@
         android:id="@+id/btnMath"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Math" />
+        android:text="@string/topic_math" />
 
     <Button
         android:id="@+id/btnPhysics"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Physics" />
+        android:text="@string/topic_physics" />
 
     <Button
         android:id="@+id/btnMarvel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Marvel Super Heroes" />
+        android:text="@string/topic_marvel" />
 
     <Button
         android:id="@+id/btnGhibli"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Studio Ghibli" />
+        android:text="@string/topic_ghibli" />
 
     <Button
         android:id="@+id/btnMario"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Mario" />
+        android:text="@string/topic_mario" />
 
     <Button
         android:id="@+id/btnHPotter"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Harry Potter" />
+        android:text="@string/topic_hp" />
 
 </LinearLayout>

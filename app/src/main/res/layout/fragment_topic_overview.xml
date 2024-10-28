@@ -5,39 +5,35 @@
     android:orientation="vertical"
     android:padding="16dp">
 
-    <!-- Topic Title -->
     <TextView
         android:id="@+id/tvTopicTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Topic Title"
+        android:text="@string/topic_title_default"
         android:textSize="24sp"
         android:layout_gravity="center_horizontal"
         android:paddingBottom="16dp" />
 
-    <!-- Topic Description -->
     <TextView
         android:id="@+id/tvDescription"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Description of the topic."
+        android:text="@string/topic_description"
         android:paddingBottom="16dp"
         android:layout_gravity="center_horizontal" />
 
-    <!-- Total Questions -->
     <TextView
         android:id="@+id/tvTotalQuestions"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Total Questions: 0"
+        android:text="@string/total_questions"
         android:paddingBottom="16dp"
         android:layout_gravity="center_horizontal" />
 
-    <!-- Begin Quiz Button -->
     <Button
         android:id="@+id/btnBegin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Begin Quiz"
+        android:text="@string/begin_quiz"
         android:layout_gravity="center_horizontal" />
 </LinearLayout>

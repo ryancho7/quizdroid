@@ -23,7 +23,6 @@ class AnswerFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Retrieve data from arguments
         val selectedAnswerIndex = arguments?.getInt("selectedAnswerIndex") ?: -1
         val correctAnswerIndex = arguments?.getInt("correctAnswerIndex") ?: -1
         val correctAnswers = arguments?.getInt("correctAnswers") ?: 0
@@ -32,26 +31,23 @@ class AnswerFragment : Fragment() {
 
         isLastQuestion = arguments?.getBoolean("isLastQuestion") ?: false
 
-        // Display the selected answer and correct answer
         view.findViewById<TextView>(R.id.tvSelectedAnswer).text =
-            "You selected: ${answersList[selectedAnswerIndex]}"
+            getString(R.string.you_selected, answersList[selectedAnswerIndex])
         view.findViewById<TextView>(R.id.tvCorrectAnswer).text =
-            "Correct answer: ${answersList[correctAnswerIndex]}"
-
-        // Display the score
+            getString(R.string.correct_answer, answersList[correctAnswerIndex])
         view.findViewById<TextView>(R.id.tvScore).text =
-            "You have $correctAnswers out of $totalQuestions correct"
+            getString(R.string.your_score, correctAnswers, totalQuestions)
 
         // Handle Next/Finish button
         val nextButton = view.findViewById<Button>(R.id.btnNext)
         if (isLastQuestion) {
-            nextButton.text = "Finish"
+            nextButton.text = getString(R.string.finish)
             nextButton.setOnClickListener {
                 // Pop back to the topic list using the "TopicList" tag
                 parentFragmentManager.popBackStack("TopicList", 0)  // Return to topic list
             }
         } else {
-            nextButton.text = "Next"
+            nextButton.text = getString(R.string.next)
             nextButton.setOnClickListener {
                 parentFragmentManager.popBackStack()  // Pop back to QuizQuestionFragment
             }

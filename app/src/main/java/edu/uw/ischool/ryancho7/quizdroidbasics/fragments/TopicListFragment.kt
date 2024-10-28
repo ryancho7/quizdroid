@@ -24,22 +24,22 @@ class TopicListFragment : Fragment() {
 
         // Set up buttons for each topic
         view.findViewById<Button>(R.id.btnMath).setOnClickListener {
-            openQuiz("Math")
+            openQuiz(getString(R.string.topic_math))
         }
         view.findViewById<Button>(R.id.btnPhysics).setOnClickListener {
-            openQuiz("Physics")
+            openQuiz(getString(R.string.topic_physics))
         }
         view.findViewById<Button>(R.id.btnMarvel).setOnClickListener {
-            openQuiz("Marvel Super Heroes")
+            openQuiz(getString(R.string.topic_marvel))
         }
         view.findViewById<Button>(R.id.btnGhibli).setOnClickListener {
-            openQuiz("Studio Ghibli")
+            openQuiz(getString(R.string.topic_ghibli))
         }
         view.findViewById<Button>(R.id.btnMario).setOnClickListener {
-            openQuiz("Mario")
+            openQuiz(getString(R.string.topic_mario))
         }
         view.findViewById<Button>(R.id.btnHPotter).setOnClickListener {
-            openQuiz("Harry Potter")
+            openQuiz(getString(R.string.topic_hp))
         }
     }
 

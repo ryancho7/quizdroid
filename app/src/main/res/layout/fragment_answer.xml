@@ -6,7 +6,6 @@
     android:gravity="center"
     android:padding="16dp">
 
-    <!-- Display the selected answer -->
     <TextView
         android:id="@+id/tvSelectedAnswer"
         android:layout_width="wrap_content"
@@ -15,7 +14,6 @@
         android:textSize="18sp"
         android:paddingBottom="8dp" />
 
-    <!-- Display the correct answer -->
     <TextView
         android:id="@+id/tvCorrectAnswer"
         android:layout_width="wrap_content"
@@ -24,7 +22,6 @@
         android:textSize="18sp"
         android:paddingBottom="16dp" />
 
-    <!-- Display the current score -->
     <TextView
         android:id="@+id/tvScore"
         android:layout_width="wrap_content"
@@ -33,11 +30,10 @@
         android:textSize="18sp"
         android:paddingBottom="16dp" />
 
-    <!-- Next or Finish Button -->
     <Button
         android:id="@+id/btnNext"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Next"
+        android:text="@string/next"
         android:layout_gravity="center_horizontal" />
 </LinearLayout>
