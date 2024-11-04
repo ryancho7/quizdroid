@@ -5,40 +5,12 @@
     android:orientation="vertical"
     android:padding="16dp">
 
-    <Button
-        android:id="@+id/btnMath"
+    <LinearLayout
+        android:id="@+id/topic_buttons_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/topic_math" />
-
-    <Button
-        android:id="@+id/btnPhysics"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/topic_physics" />
-
-    <Button
-        android:id="@+id/btnMarvel"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/topic_marvel" />
-
-    <Button
-        android:id="@+id/btnGhibli"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/topic_ghibli" />
-
-    <Button
-        android:id="@+id/btnMario"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/topic_mario" />
-
-    <Button
-        android:id="@+id/btnHPotter"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/topic_hp" />
+        android:orientation="vertical"
+        android:layout_gravity="center_horizontal"
+        android:paddingTop="8dp" />
 
 </LinearLayout>

@@ -5,7 +5,6 @@
     <string name="radio_option_4">Option 4</string>
     <string name="submit">Submit</string>
 
-
     <string name="app_name">QuizDroid(Basics)</string>
     <string name="you_selected">You selected: %1$s</string>
     <string name="correct_answer">Correct answer: %1$s</string>
@@ -14,15 +13,33 @@
     <string name="next">Next</string>
     <string name="finish">Finish</string>
 
-    <string name="topic_math">Math</string>
-    <string name="topic_physics">Physics</string>
-    <string name="topic_marvel">Marvel Super Heroes</string>
-    <string name="topic_ghibli">Studio Ghibli</string>
-    <string name="topic_mario">Mario</string>
-    <string name="topic_hp">Harry Potter</string>
-
     <string name="topic_title_default">Math</string>
     <string name="topic_description">This is not a quiz for the casual fan. Can you get them all right?</string>
     <string name="total_questions">Total Questions: %1$d</string>
     <string name="begin_quiz">Begin Quiz</string>
+
+    <string name="topic_math_title">Math</string>
+    <string name="topic_math_description">Math questions</string>
+    <string name="topic_math_long_description">Test your math skills</string>
+
+    <string name="topic_physics_title">Physics</string>
+    <string name="topic_physics_description">Physics questions</string>
+    <string name="topic_physics_long_description">Challenge your knowledge in physics</string>
+
+    <string name="topic_marvel_title">Marvel Super Heroes</string>
+    <string name="topic_marvel_description">Marvel questions</string>
+    <string name="topic_marvel_long_description">Explore the Marvel universe</string>
+
+    <string name="topic_ghibli_title">Studio Ghibli</string>
+    <string name="topic_ghibli_description">Ghibli questions</string>
+    <string name="topic_ghibli_long_description">Studio Ghibli trivia</string>
+
+    <string name="topic_mario_title">Mario</string>
+    <string name="topic_mario_description">Mario questions</string>
+    <string name="topic_mario_long_description">Quiz on Mario games</string>
+
+    <string name="topic_hp_title">Harry Potter</string>
+    <string name="topic_hp_description">Harry Potter questions</string>
+    <string name="topic_hp_long_description">Harry Potter trivia</string>
+
 </resources>

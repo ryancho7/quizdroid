@@ -11,7 +11,7 @@ import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import edu.uw.ischool.ryancho7.quizdroidbasics.R
-import edu.uw.ischool.ryancho7.quizdroidbasics.data.QuizData
+import edu.uw.ischool.ryancho7.quizdroidbasics.QuizApp
 import edu.uw.ischool.ryancho7.quizdroidbasics.models.Question
 
 class QuizQuestionFragment : Fragment() {
@@ -32,45 +32,20 @@ class QuizQuestionFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Get the selected topic from arguments
-        val topic = arguments?.getString("topic") ?: getString(R.string.topic_math)
+        // Retrieve questions from repository based on selected topic
+        val topicTitle = arguments?.getString("topic") ?: ""
+        val repository = (requireActivity().application as QuizApp).topicRepository
+        questions = repository.getQuestionsForTopic(topicTitle)
 
-        // Load the questions for the selected topic
-        questions = when (topic) {
-            getString(R.string.topic_math) -> QuizData.getMathQuestions()
-            getString(R.string.topic_physics) -> QuizData.getPhysicsQuestions()
-            getString(R.string.topic_marvel) -> QuizData.getMarvelQuestions()
-            getString(R.string.topic_ghibli) -> QuizData.getStudioGhibliQuestions()
-            getString(R.string.topic_mario) -> QuizData.getMarioQuestions()
-            getString(R.string.topic_hp) -> QuizData.getHarryPotterQuestions()
-            else -> QuizData.getMathQuestions()
-        }
-
-        // If returning from the answer page, load the next question
+        // Load the first question or continue if returning from the answer page
         if (isReturningFromAnswer) {
             proceedToNextQuestion()
         } else {
-            // Load the current question normally
             loadQuestion(view)
         }
 
-        // Set up the Submit button functionality
-        val submitButton = view.findViewById<Button>(R.id.btnSubmit)
-        submitButton.isEnabled = false
-        view.findViewById<RadioGroup>(R.id.radioGroup).setOnCheckedChangeListener { _, _ ->
-            submitButton.isEnabled = true
-        }
-
-        submitButton.setOnClickListener {
-            navigateToAnswerPage(view)
-        }
-
-        // Add callback to handle back button presses
-        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                handleBackPressed() // Call the back press handler
-            }
-        })
+        setupSubmitButton(view)
+        setupBackButton(view)
     }
 
     private fun loadQuestion(view: View) {
@@ -80,6 +55,18 @@ class QuizQuestionFragment : Fragment() {
         view.findViewById<RadioButton>(R.id.radioOption2).text = question.options[1]
         view.findViewById<RadioButton>(R.id.radioOption3).text = question.options[2]
         view.findViewById<RadioButton>(R.id.radioOption4).text = question.options[3]
+    }
+
+    private fun setupSubmitButton(view: View) {
+        val submitButton = view.findViewById<Button>(R.id.btnSubmit)
+        submitButton.isEnabled = false
+        view.findViewById<RadioGroup>(R.id.radioGroup).setOnCheckedChangeListener { _, _ ->
+            submitButton.isEnabled = true
+        }
+
+        submitButton.setOnClickListener {
+            navigateToAnswerPage(view)
+        }
     }
 
     private fun navigateToAnswerPage(view: View) {
@@ -92,49 +79,54 @@ class QuizQuestionFragment : Fragment() {
             else -> -1
         }
 
-        // check answer
+        // Check answer correctness
         val isCorrect = selectedAnswerIndex == questions[currentQuestionIndex].correctAnswer
-        if(isCorrect) {
+        if (isCorrect) {
             correctAnswers++
         }
         answerHistory.add(isCorrect)
 
-        // Prepare the answer options list to pass to the AnswerFragment
+        // Prepare data to pass to the AnswerFragment
         val answerOptions = questions[currentQuestionIndex].options.toTypedArray()
-
-        // Pass data to the AnswerFragment
         val bundle = Bundle().apply {
             putInt("selectedAnswerIndex", selectedAnswerIndex)
             putInt("correctAnswerIndex", questions[currentQuestionIndex].correctAnswer)
             putInt("correctAnswers", correctAnswers)
             putInt("totalQuestions", questions.size)
-            putStringArray("answerOptions", answerOptions) // Pass answer options
+            putStringArray("answerOptions", answerOptions)
             putBoolean("isLastQuestion", currentQuestionIndex == questions.size - 1)
         }
 
         // Navigate to AnswerFragment
         val fragment = AnswerFragment()
         fragment.arguments = bundle
-
         parentFragmentManager.beginTransaction()
             .replace(R.id.fragment_container, fragment)
             .addToBackStack("AnswerPage")
             .commit()
     }
 
+    private fun setupBackButton(view: View) {
+        // Handle back button press behavior
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                handleBackPressed()
+            }
+        })
+    }
 
     private fun handleBackPressed() {
         if (currentQuestionIndex > 0) {
+            // Go back one question if possible
             currentQuestionIndex--
-            if(answerHistory.isNotEmpty()) {
+            if (answerHistory.isNotEmpty()) {
                 val lastAnswer = answerHistory.removeAt(answerHistory.size - 1)
-                if(lastAnswer) {
-                    correctAnswers--
-                }
+                if (lastAnswer) correctAnswers--
             }
-            loadQuestion(requireView()) // Load the previous question
+            loadQuestion(requireView())
         } else {
-            parentFragmentManager.popBackStack("TopicList", 0) // Return to Topic List
+            // If no previous question, return to Topic List
+            parentFragmentManager.popBackStack("TopicList", 0)
         }
     }
 
@@ -142,17 +134,16 @@ class QuizQuestionFragment : Fragment() {
         currentQuestionIndex++
         if (currentQuestionIndex < questions.size) {
             loadQuestion(requireView())
-            isReturningFromAnswer = false // Reset the flag
+            isReturningFromAnswer = false // Reset flag
         } else {
-            // If finished, navigate to the score or topic list
+            // End of quiz; return to Topic List
             parentFragmentManager.popBackStack("TopicList", 0)
         }
     }
 
     override fun onResume() {
         super.onResume()
-        // Check if returning from the answer page and set flag
+        // Check if returning from the answer page
         isReturningFromAnswer = true
     }
 }
-

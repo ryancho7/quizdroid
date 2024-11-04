@@ -7,8 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import edu.uw.ischool.ryancho7.quizdroidbasics.QuizApp
 import edu.uw.ischool.ryancho7.quizdroidbasics.R
-import edu.uw.ischool.ryancho7.quizdroidbasics.data.QuizData
 
 class TopicOverviewFragment : Fragment() {
 
@@ -22,29 +22,21 @@ class TopicOverviewFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Get the topic name from arguments
-        val topic = arguments?.getString("topic") ?: getString(R.string.topic_title_default)
+        val repository = (requireActivity().application as QuizApp).topicRepository
+        val topicTitle = arguments?.getString("topic") ?: ""
+        val topic = repository.getAllTopics().find { it.title == topicTitle }
 
-        // Retrieve the total number of questions for the topic
-        val totalQuestions = when (topic) {
-            "Math" -> QuizData.getMathQuestions().size
-            "Physics" -> QuizData.getPhysicsQuestions().size
-            "Marvel Super Heroes" -> QuizData.getMarvelQuestions().size
-            "Studio Ghibli" -> QuizData.getStudioGhibliQuestions().size
-            "Mario" -> QuizData.getMarioQuestions().size
-            "Harry Potter" -> QuizData.getHarryPotterQuestions().size
-            else -> 0
+        // Populate UI elements with topic details
+        topic?.let {
+            view.findViewById<TextView>(R.id.tvTopicTitle).text = it.title
+            view.findViewById<TextView>(R.id.tvDescription).text = it.longDescription
+            view.findViewById<TextView>(R.id.tvTotalQuestions).text = getString(R.string.total_questions, it.questions.size)
         }
 
-        // Set the topic title, description, and total number of questions
-        view.findViewById<TextView>(R.id.tvTopicTitle).text = topic
-        view.findViewById<TextView>(R.id.tvDescription).text = getString(R.string.topic_description)
-        view.findViewById<TextView>(R.id.tvTotalQuestions).text = getString(R.string.total_questions, totalQuestions)
-
-        // Begin button to navigate to QuizQuestionFragment
+        // Set up Begin button to start quiz with selected topic
         view.findViewById<Button>(R.id.btnBegin).setOnClickListener {
             val bundle = Bundle().apply {
-                putString("topic", topic)
+                putString("topic", topicTitle)  // Pass the topic title to QuizQuestionFragment
             }
             val fragment = QuizQuestionFragment()
             fragment.arguments = bundle

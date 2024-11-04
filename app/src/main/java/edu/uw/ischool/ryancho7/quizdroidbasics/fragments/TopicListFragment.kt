@@ -8,6 +8,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.LinearLayout
+import edu.uw.ischool.ryancho7.quizdroidbasics.QuizApp
 import edu.uw.ischool.ryancho7.quizdroidbasics.R
 
 class TopicListFragment : Fragment() {
@@ -22,31 +24,33 @@ class TopicListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Set up buttons for each topic
-        view.findViewById<Button>(R.id.btnMath).setOnClickListener {
-            openQuiz(getString(R.string.topic_math))
-        }
-        view.findViewById<Button>(R.id.btnPhysics).setOnClickListener {
-            openQuiz(getString(R.string.topic_physics))
-        }
-        view.findViewById<Button>(R.id.btnMarvel).setOnClickListener {
-            openQuiz(getString(R.string.topic_marvel))
-        }
-        view.findViewById<Button>(R.id.btnGhibli).setOnClickListener {
-            openQuiz(getString(R.string.topic_ghibli))
-        }
-        view.findViewById<Button>(R.id.btnMario).setOnClickListener {
-            openQuiz(getString(R.string.topic_mario))
-        }
-        view.findViewById<Button>(R.id.btnHPotter).setOnClickListener {
-            openQuiz(getString(R.string.topic_hp))
+        // load topics from the repository and display them
+        loadTopics(view)
+    }
+
+    private fun loadTopics(view: View) {
+        // Access TopicRepository from QuizApp
+        val repository = (requireActivity().application as QuizApp).topicRepository
+        val topics = repository.getAllTopics()
+
+        // Reference to the layout where topic buttons will be added
+        val layout = view.findViewById<LinearLayout>(R.id.topic_buttons_layout)
+
+        // Dynamically create buttons for each topic
+        topics.forEach { topic ->
+            val button = Button(requireContext()).apply {
+                text = topic.title
+                setOnClickListener {
+                    openTopicOverview(topic.title)  // Pass the topic title when button is clicked
+                }
+            }
+            layout.addView(button)
         }
     }
 
-    // Navigate to the QuizQuestionFragment with the selected topic
-    private fun openQuiz(topic: String) {
+    private fun openTopicOverview(topicTitle: String) {
         val bundle = Bundle().apply {
-            putString("topic", topic)
+            putString("topic", topicTitle)  // Pass the topic title to TopicOverviewFragment
         }
         val fragment = TopicOverviewFragment()
         fragment.arguments = bundle
