@@ -1,4 +1,12 @@
 <resources>
+
+    <string name="action_preferences">Preferences</string>
+    <string name="data_url">Data URL</string>
+    <string name="enter_url">Enter the data URL</string>
+    <string name="check_frequency">Check Frequency (minutes)</string>
+    <string name="enter_frequency">Enter frequency in minutes</string>
+    <string name="save_button">Save</string>
+
     <string name="radio_option_1">Option 1</string>
     <string name="radio_option_2">Option 2</string>
     <string name="radio_option_3">Option 3</string>

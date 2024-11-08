@@ -29,7 +29,7 @@ class TopicOverviewFragment : Fragment() {
         // Populate UI elements with topic details
         topic?.let {
             view.findViewById<TextView>(R.id.tvTopicTitle).text = it.title
-            view.findViewById<TextView>(R.id.tvDescription).text = it.longDescription
+            view.findViewById<TextView>(R.id.tvDescription).text = it.desc
             view.findViewById<TextView>(R.id.tvTotalQuestions).text = getString(R.string.total_questions, it.questions.size)
         }
 

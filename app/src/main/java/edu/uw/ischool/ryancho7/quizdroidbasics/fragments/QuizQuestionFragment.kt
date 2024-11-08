@@ -50,11 +50,11 @@ class QuizQuestionFragment : Fragment() {
 
     private fun loadQuestion(view: View) {
         val question = questions[currentQuestionIndex]
-        view.findViewById<TextView>(R.id.tvQuestion).text = question.questionText
-        view.findViewById<RadioButton>(R.id.radioOption1).text = question.options[0]
-        view.findViewById<RadioButton>(R.id.radioOption2).text = question.options[1]
-        view.findViewById<RadioButton>(R.id.radioOption3).text = question.options[2]
-        view.findViewById<RadioButton>(R.id.radioOption4).text = question.options[3]
+        view.findViewById<TextView>(R.id.tvQuestion).text = question.text
+        view.findViewById<RadioButton>(R.id.radioOption1).text = question.answers[0]
+        view.findViewById<RadioButton>(R.id.radioOption2).text = question.answers[1]
+        view.findViewById<RadioButton>(R.id.radioOption3).text = question.answers[2]
+        view.findViewById<RadioButton>(R.id.radioOption4).text = question.answers[3]
     }
 
     private fun setupSubmitButton(view: View) {
@@ -80,17 +80,17 @@ class QuizQuestionFragment : Fragment() {
         }
 
         // Check answer correctness
-        val isCorrect = selectedAnswerIndex == questions[currentQuestionIndex].correctAnswer
+        val isCorrect = selectedAnswerIndex == questions[currentQuestionIndex].answer-1
         if (isCorrect) {
             correctAnswers++
         }
         answerHistory.add(isCorrect)
 
         // Prepare data to pass to the AnswerFragment
-        val answerOptions = questions[currentQuestionIndex].options.toTypedArray()
+        val answerOptions = questions[currentQuestionIndex].answers.toTypedArray()
         val bundle = Bundle().apply {
             putInt("selectedAnswerIndex", selectedAnswerIndex)
-            putInt("correctAnswerIndex", questions[currentQuestionIndex].correctAnswer)
+            putInt("correctAnswerIndex", questions[currentQuestionIndex].answer-1)
             putInt("correctAnswers", correctAnswers)
             putInt("totalQuestions", questions.size)
             putStringArray("answerOptions", answerOptions)
